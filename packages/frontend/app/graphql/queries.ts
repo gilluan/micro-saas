@@ -33,12 +33,6 @@ export const listOrders = /* GraphQL */ `query ListOrders(
   listOrders(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
-      products {
-        name
-        value
-        quantity
-        __typename
-      }
       customerID
       createdAt
       updatedAt
@@ -114,21 +108,6 @@ export const getProfile = /* GraphQL */ `query GetProfile($id: ID!) {
       __typename
     }
     Campaigns {
-      items {
-        id
-        name
-        startsAt
-        finishesAt
-        validFrom
-        validUntil
-        minValue
-        bonus
-        profileID
-        createdAt
-        updatedAt
-        owner
-        __typename
-      }
       nextToken
       __typename
     }
@@ -155,21 +134,6 @@ export const listProfiles = /* GraphQL */ `query ListProfiles(
       phone
       email
       logo
-      Settings {
-        id
-        enableWhatsapp
-        enableSMS
-        enableEmail
-        currency
-        createdAt
-        updatedAt
-        owner
-        __typename
-      }
-      Campaigns {
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       profileSettingsId
@@ -198,14 +162,6 @@ export const getCustomer = /* GraphQL */ `query GetCustomer($id: ID!) {
       __typename
     }
     Orders {
-      items {
-        id
-        customerID
-        createdAt
-        updatedAt
-        owner
-        __typename
-      }
       nextToken
       __typename
     }
@@ -231,16 +187,6 @@ export const listCustomers = /* GraphQL */ `query ListCustomers(
       phone
       email
       points
-      history {
-        campaignId
-        value
-        validUntil
-        __typename
-      }
-      Orders {
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       owner
@@ -320,12 +266,6 @@ export const ordersByCustomerID = /* GraphQL */ `query OrdersByCustomerID(
   ) {
     items {
       id
-      products {
-        name
-        value
-        quantity
-        __typename
-      }
       customerID
       createdAt
       updatedAt

@@ -159,21 +159,6 @@ export const onCreateProfile = /* GraphQL */ `subscription OnCreateProfile(
       __typename
     }
     Campaigns {
-      items {
-        id
-        name
-        startsAt
-        finishesAt
-        validFrom
-        validUntil
-        minValue
-        bonus
-        profileID
-        createdAt
-        updatedAt
-        owner
-        __typename
-      }
       nextToken
       __typename
     }
@@ -210,21 +195,6 @@ export const onUpdateProfile = /* GraphQL */ `subscription OnUpdateProfile(
       __typename
     }
     Campaigns {
-      items {
-        id
-        name
-        startsAt
-        finishesAt
-        validFrom
-        validUntil
-        minValue
-        bonus
-        profileID
-        createdAt
-        updatedAt
-        owner
-        __typename
-      }
       nextToken
       __typename
     }
@@ -261,21 +231,6 @@ export const onDeleteProfile = /* GraphQL */ `subscription OnDeleteProfile(
       __typename
     }
     Campaigns {
-      items {
-        id
-        name
-        startsAt
-        finishesAt
-        validFrom
-        validUntil
-        minValue
-        bonus
-        profileID
-        createdAt
-        updatedAt
-        owner
-        __typename
-      }
       nextToken
       __typename
     }
@@ -307,14 +262,6 @@ export const onCreateCustomer = /* GraphQL */ `subscription OnCreateCustomer(
       __typename
     }
     Orders {
-      items {
-        id
-        customerID
-        createdAt
-        updatedAt
-        owner
-        __typename
-      }
       nextToken
       __typename
     }
@@ -345,14 +292,6 @@ export const onUpdateCustomer = /* GraphQL */ `subscription OnUpdateCustomer(
       __typename
     }
     Orders {
-      items {
-        id
-        customerID
-        createdAt
-        updatedAt
-        owner
-        __typename
-      }
       nextToken
       __typename
     }
@@ -383,14 +322,6 @@ export const onDeleteCustomer = /* GraphQL */ `subscription OnDeleteCustomer(
       __typename
     }
     Orders {
-      items {
-        id
-        customerID
-        createdAt
-        updatedAt
-        owner
-        __typename
-      }
       nextToken
       __typename
     }

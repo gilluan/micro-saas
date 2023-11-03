@@ -69,7 +69,6 @@ export function createAmplifyHosting(
       },
     ],
     environmentVariables: {
-      myAmplifyEnv: "test", //process.env.myAmplifyEnv on frontend
       AMPLIFY_MONOREPO_APP_ROOT: "packages/frontend",
     },
     buildSpec: BuildSpec.fromObjectToYaml({
@@ -81,11 +80,11 @@ export function createAmplifyHosting(
             phases: {
               preBuild: {
                 commands: [
-                  "cd ../backend", //the buildspec file gets ran from the root of our project
-                  "npm ci", //install the cdk deps
+                  "cd ../backend",
+                  "npm ci",
                   "npm run deploy:ci",
                   "cd ../frontend",
-                  "npm ci", // install the frontend deps,
+                  "npm ci",
                 ],
               },
               build: {

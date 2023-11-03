@@ -159,21 +159,6 @@ export const createProfile = /* GraphQL */ `mutation CreateProfile(
       __typename
     }
     Campaigns {
-      items {
-        id
-        name
-        startsAt
-        finishesAt
-        validFrom
-        validUntil
-        minValue
-        bonus
-        profileID
-        createdAt
-        updatedAt
-        owner
-        __typename
-      }
       nextToken
       __typename
     }
@@ -210,21 +195,6 @@ export const updateProfile = /* GraphQL */ `mutation UpdateProfile(
       __typename
     }
     Campaigns {
-      items {
-        id
-        name
-        startsAt
-        finishesAt
-        validFrom
-        validUntil
-        minValue
-        bonus
-        profileID
-        createdAt
-        updatedAt
-        owner
-        __typename
-      }
       nextToken
       __typename
     }
@@ -261,21 +231,6 @@ export const deleteProfile = /* GraphQL */ `mutation DeleteProfile(
       __typename
     }
     Campaigns {
-      items {
-        id
-        name
-        startsAt
-        finishesAt
-        validFrom
-        validUntil
-        minValue
-        bonus
-        profileID
-        createdAt
-        updatedAt
-        owner
-        __typename
-      }
       nextToken
       __typename
     }
@@ -307,14 +262,6 @@ export const createCustomer = /* GraphQL */ `mutation CreateCustomer(
       __typename
     }
     Orders {
-      items {
-        id
-        customerID
-        createdAt
-        updatedAt
-        owner
-        __typename
-      }
       nextToken
       __typename
     }
@@ -345,14 +292,6 @@ export const updateCustomer = /* GraphQL */ `mutation UpdateCustomer(
       __typename
     }
     Orders {
-      items {
-        id
-        customerID
-        createdAt
-        updatedAt
-        owner
-        __typename
-      }
       nextToken
       __typename
     }
@@ -383,14 +322,6 @@ export const deleteCustomer = /* GraphQL */ `mutation DeleteCustomer(
       __typename
     }
     Orders {
-      items {
-        id
-        customerID
-        createdAt
-        updatedAt
-        owner
-        __typename
-      }
       nextToken
       __typename
     }
