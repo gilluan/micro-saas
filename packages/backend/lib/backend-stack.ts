@@ -7,7 +7,7 @@ import { createAmplifyHosting } from "./hosting/amplify";
 export class BackendStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
-    const appName = "loyalty-saas";
+    const appName = "micro-saas";
 
     const auth = createAuth(this, {
       appName,
@@ -25,7 +25,7 @@ export class BackendStack extends cdk.Stack {
       account: this.account,
       appName,
       branch: "main",
-      repo: "loyalty",
+      repo: "micro-saas",
       ghOwner: "gilluan",
       ghTokenName:
         "arn:aws:secretsmanager:us-east-1:118246485705:secret:github/loyalty-5ugb8f",
