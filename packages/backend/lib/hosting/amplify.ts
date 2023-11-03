@@ -70,35 +70,38 @@ export function createAmplifyHosting(
     ],
     environmentVariables: {
       myAmplifyEnv: "test", //process.env.myAmplifyEnv on frontend
+      AMPLIFY_MONOREPO_APP_ROOT: "packages/frontend",
     },
     buildSpec: BuildSpec.fromObjectToYaml({
       version: 1,
-      applications: {
-        appRoot: "packages/frontend",
-        frontend: {
-          phases: {
-            preBuild: {
-              commands: [
-                //              "cd backend", //the buildspec file gets ran from the root of our project
-                //             "npm ci", //install the cdk deps
-                //            "npm run deploy:ci",
-                //           "cd ../frontend",
-                "npm ci", // install the frontend deps,
-              ],
+      applications: [
+        {
+          appRoot: "packages/frontend",
+          frontend: {
+            phases: {
+              preBuild: {
+                commands: [
+                  "cd ../backend", //the buildspec file gets ran from the root of our project
+                  "npm ci", //install the cdk deps
+                  "npm run deploy:ci",
+                  "cd ../frontend",
+                  "npm ci", // install the frontend deps,
+                ],
+              },
+              build: {
+                commands: ["npm run build"],
+              },
             },
-            build: {
-              commands: ["npm run build"],
+            artifacts: {
+              baseDirectory: ".next",
+              files: ["**/*"],
             },
-          },
-          artifacts: {
-            baseDirectory: ".next",
-            files: ["**/*"],
-          },
-          cache: {
-            paths: ["node_modules/**/*"],
+            cache: {
+              paths: ["node_modules/**/*"],
+            },
           },
         },
-      },
+      ],
     }),
   });
 

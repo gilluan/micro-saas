@@ -1,16 +1,16 @@
 {
   "BackendStack": {
-    "awsAppsyncApiEndpoint": "https://kcxifaaf7jfdzk7ssz2xsgei6q.appsync-api.us-east-1.amazonaws.com/graphql",
-    "awsAppsyncApiId": "4t6smronjnbfxanbk6si4mhlt4",
-    "AppSyncAPIId": "4t6smronjnbfxanbk6si4mhlt4",
-    "amplifyApiModelSchemaS3Uri": "s3://backendstack-loyaltysaasamplifycodegenassetsampli-5s9y1ot6fk54/model-schema.graphql",
+    "awsAppsyncApiEndpoint": "https://lhqjxzlbovbzplzfqqe2jjrnyu.appsync-api.us-east-1.amazonaws.com/graphql",
+    "awsAppsyncApiId": "ji5qcwuym5darjskkoxf6dddlm",
+    "AppSyncAPIId": "ji5qcwuym5darjskkoxf6dddlm",
+    "amplifyApiModelSchemaS3Uri": "s3://backendstack-microsaasamplifycodegenassetsamplify-c6kscxzknhz6/model-schema.graphql",
     "awsAppsyncAdditionalAuthenticationTypes": "AWS_IAM",
     "awsAppsyncRegion": "us-east-1",
-    "UserPoolClientId": "1p4fia467oobgo03mf6p77r7b7",
+    "UserPoolClientId": "34os4qi8br48vo8j5mg04crlbq",
     "awsAppsyncAuthenticationType": "AMAZON_COGNITO_USER_POOLS",
-    "UserPoolId": "us-east-1_PgS72SB8z",
-    "IdentityPoolId": "us-east-1:eb324359-c8cd-470d-a686-a273bfeda63b",
-    "AppSyncAPIEndpoint": "https://kcxifaaf7jfdzk7ssz2xsgei6q.appsync-api.us-east-1.amazonaws.com/graphql",
+    "UserPoolId": "us-east-1_dMzrnwZTg",
+    "IdentityPoolId": "us-east-1:3d9477db-4f83-4edc-b311-5077a9a13c75",
+    "AppSyncAPIEndpoint": "https://lhqjxzlbovbzplzfqqe2jjrnyu.appsync-api.us-east-1.amazonaws.com/graphql",
     "AppSyncAuthType": "AMAZON_COGNITO_USER_POOLS",
     "AppRegion": "us-east-1"
   }
