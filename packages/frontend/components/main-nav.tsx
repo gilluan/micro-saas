@@ -9,13 +9,16 @@ import type { WithAuthenticatorProps } from "@aws-amplify/ui-react";
 import { cn } from "@/lib/utils";
 
 import { UserNav } from "@/components/user-nav";
+
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
 export function MainNav({ user, signOut }: WithAuthenticatorProps) {
   const pathname = usePathname();
 
   const links = [
     {
-      href: "/campaign",
-      name: "Campaigns",
+      href: "/todo",
+      name: "Todo",
     },
   ];
 
@@ -23,7 +26,13 @@ export function MainNav({ user, signOut }: WithAuthenticatorProps) {
     <div className="border-b">
       <div className="flex h-16 items-center justify-between px-4">
         <Link href="/" className="mr-6 flex items-center space-x-2">
-          <span className="font-bold sm:inline-block">Loyalty Platform</span>
+          <Avatar className="">
+            <AvatarImage
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQuDKHiDIFtx1QYqRTUER3h7nLpCsHe5UXH91VriM7Xg&s"
+              alt="Amplify"
+            />
+            <AvatarFallback>AWS</AvatarFallback>
+          </Avatar>
         </Link>
         <nav className="flex space-x-4 lg:space-x-6 mx-6 justify-start">
           {links.map((link) => (
