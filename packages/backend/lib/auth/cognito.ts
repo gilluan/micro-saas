@@ -1,55 +1,66 @@
 import { Construct } from "constructs";
 import * as awsCognito from "aws-cdk-lib/aws-cognito";
+
 import {
   IdentityPool,
   UserPoolAuthenticationProvider,
 } from "@aws-cdk/aws-cognito-identitypool-alpha";
 
-type CreateAuthProps = {
+interface CognitoAuthProps {
   appName: string;
-};
+}
 
-export function createAuth(scope: Construct, props: CreateAuthProps) {
-  const userPool = new awsCognito.UserPool(scope, `${props.appName}-userpool`, {
-    userPoolName: `${props.appName}-userpool`,
-    selfSignUpEnabled: true,
-    accountRecovery: awsCognito.AccountRecovery.PHONE_AND_EMAIL,
-    userVerification: {
-      emailStyle: awsCognito.VerificationEmailStyle.CODE,
-    },
-    autoVerify: {
-      email: true,
-    },
-    standardAttributes: {
-      email: {
-        required: true,
-        mutable: true,
-      },
-    },
-  });
+export class CognitoAuth extends Construct {
+  readonly userPool: awsCognito.UserPool;
+  readonly userPoolClient: awsCognito.UserPoolClient;
+  readonly identityPool: IdentityPool;
 
-  const userPoolClient = new awsCognito.UserPoolClient(
-    scope,
-    `${props.appName}-userpoolClient`,
-    { userPool }
-  );
+  constructor(scope: Construct, id: string, props: CognitoAuthProps) {
+    super(scope, id);
 
-  const identityPool = new IdentityPool(
-    scope,
-    `${props.appName}-identityPool`,
-    {
-      identityPoolName: `${props.appName}-identityPool`,
-      allowUnauthenticatedIdentities: true,
-      authenticationProviders: {
-        userPools: [
-          new UserPoolAuthenticationProvider({
-            userPool: userPool,
-            userPoolClient: userPoolClient,
-          }),
-        ],
-      },
-    }
-  );
+    this.userPool = new awsCognito.UserPool(
+      scope,
+      `${props.appName}-userpool`,
+      {
+        userPoolName: `${props.appName}-userpool`,
+        selfSignUpEnabled: true,
+        accountRecovery: awsCognito.AccountRecovery.PHONE_AND_EMAIL,
+        userVerification: {
+          emailStyle: awsCognito.VerificationEmailStyle.CODE,
+        },
+        autoVerify: {
+          email: true,
+        },
+        standardAttributes: {
+          email: {
+            required: true,
+            mutable: true,
+          },
+        },
+      }
+    );
 
-  return { userPool, userPoolClient, identityPool };
+    this.userPoolClient = new awsCognito.UserPoolClient(
+      scope,
+      `${props.appName}-userpoolClient`,
+      { userPool: this.userPool }
+    );
+
+    this.identityPool = new IdentityPool(
+      scope,
+      `${props.appName}-identityPool`,
+      {
+        identityPoolName: `${props.appName}-identityPool`,
+        allowUnauthenticatedIdentities: true,
+        authenticationProviders: {
+          userPools: [
+            new UserPoolAuthenticationProvider({
+              userPool: this.userPool,
+              userPoolClient: this.userPoolClient,
+            }),
+          ],
+        },
+      }
+    );
+  }
 }

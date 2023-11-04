@@ -1,34 +1,40 @@
 import * as cdk from "aws-cdk-lib";
 import { Construct } from "constructs";
-import { createAuth } from "./auth/cognito";
-import { createAmplifyGraphQLAPI } from "./api/appsync";
-import { createAmplifyHosting } from "./hosting/amplify";
+import { CognitoAuth } from "./auth/cognito";
+import { AppSyncApi } from "./api/appsync";
+import { AmplifyHosting } from "./hosting/amplify";
+
+export interface BackendStackProps extends cdk.StackProps {
+  appName: string;
+  branch: string;
+  ghRepo: string;
+  ghOwner: string;
+  ghTokenName: string;
+}
 
 export class BackendStack extends cdk.Stack {
-  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+  constructor(scope: Construct, id: string, props: BackendStackProps) {
     super(scope, id, props);
-    const appName = "micro-saas";
 
-    const auth = createAuth(this, {
-      appName,
+    const auth = new CognitoAuth(this, `${props.appName}-cognito-auth`, {
+      appName: props.appName,
     });
 
-    const api = createAmplifyGraphQLAPI(this, {
-      appName,
+    const appSync = new AppSyncApi(this, `${props.appName}-appsync-api`, {
+      appName: props.appName,
       userpool: auth.userPool,
       identityPoolId: auth.identityPool.identityPoolId,
       authRole: auth.identityPool.authenticatedRole,
       unauthRole: auth.identityPool.unauthenticatedRole,
     });
 
-    createAmplifyHosting(this, {
+    new AmplifyHosting(this, `${props.appName}-amplify-hosting`, {
       account: this.account,
-      appName,
-      branch: "main",
-      repo: "micro-saas",
-      ghOwner: "gilluan",
-      ghTokenName:
-        "arn:aws:secretsmanager:us-east-1:118246485705:secret:github/loyalty-5ugb8f",
+      appName: props.appName,
+      branch: props.branch,
+      ghRepo: props.ghRepo,
+      ghOwner: props.ghOwner,
+      ghTokenName: props.ghTokenName,
     });
 
     new cdk.CfnOutput(this, "UserPoolId", {
@@ -41,13 +47,14 @@ export class BackendStack extends cdk.Stack {
       value: auth.identityPool.identityPoolId,
     });
     new cdk.CfnOutput(this, "AppSyncAPIEndpoint", {
-      value: api.graphqlUrl,
+      value: appSync.api.graphqlUrl,
     });
     new cdk.CfnOutput(this, "AppSyncAPIId", {
-      value: api.resources.graphqlApi.apiId,
+      value: appSync.api.resources.graphqlApi.apiId,
     });
     new cdk.CfnOutput(this, "AppSyncAuthType", {
-      value: api.resources.cfnResources.cfnGraphqlApi.authenticationType,
+      value:
+        appSync.api.resources.cfnResources.cfnGraphqlApi.authenticationType,
     });
     new cdk.CfnOutput(this, "AppRegion", {
       value: this.region,
