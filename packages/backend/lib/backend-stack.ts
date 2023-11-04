@@ -35,6 +35,7 @@ export class BackendStack extends cdk.Stack {
       ghRepo: props.ghRepo,
       ghOwner: props.ghOwner,
       ghTokenName: props.ghTokenName,
+      deployCdk: true,
     });
 
     new cdk.CfnOutput(this, "UserPoolId", {

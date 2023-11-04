@@ -20,6 +20,10 @@ export interface AmplifyHostingProps {
   deployCdk?: boolean;
 }
 
+import { getConfig } from "../../config";
+
+const config = getConfig();
+
 export class AmplifyHosting extends Construct {
   readonly name: string;
   constructor(scope: Construct, id: string, props: AmplifyHostingProps) {
@@ -76,6 +80,7 @@ export class AmplifyHosting extends Construct {
       ],
       environmentVariables: {
         AMPLIFY_MONOREPO_APP_ROOT: "packages/frontend",
+        ...config,
       },
       buildSpec: BuildSpec.fromObjectToYaml({
         version: 1,
