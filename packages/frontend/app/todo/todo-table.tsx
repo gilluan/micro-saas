@@ -29,8 +29,7 @@ export const buildColumns = (
   return [
     {
       accessorKey: "done",
-      header: "Done",
-
+      header: ({ table }) => <div className="w-[0px]">Done</div>,
       cell: ({ row }) => (
         <>
           <Checkbox
@@ -44,7 +43,9 @@ export const buildColumns = (
     {
       accessorKey: "description",
       header: "Description",
-      cell: ({ row }) => <>{row.original.description}</>,
+      cell: ({ row }) => (
+        <div className="w-[60em]">{row.original.description}</div>
+      ),
     },
     {
       accessorKey: "delete",
