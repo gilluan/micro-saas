@@ -85,7 +85,7 @@ export default function ListTodoPage() {
               <Sheet open={open} onOpenChange={setOpen}>
                 <SheetTrigger asChild>
                   <Button>
-                    <PlusCircledIcon className="mr-4 h-4 w-4" />
+                    <PlusCircledIcon className="mr-2 h-4 w-4" />
                     New Task
                   </Button>
                 </SheetTrigger>
