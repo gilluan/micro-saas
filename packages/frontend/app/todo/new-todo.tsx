@@ -22,8 +22,6 @@
    FormMessage,
  } from "@/components/ui/form";
  import { Input } from "@/components/ui/input";
- // useRouter
- import { useRouter } from "next/navigation";
 
  const formSchema = z.object({
    description: z.string().min(10, {
@@ -31,9 +29,11 @@
    }),
  });
 
- export default function NewTodoPage() {
-   const router = useRouter();
+ export interface NewTodoProps {
+   onSaveCallback: Function;
+ }
 
+ export function NewTodo(props: NewTodoProps) {
    const form = useForm<z.infer<typeof formSchema>>({
      resolver: zodResolver(formSchema),
      defaultValues: {
@@ -49,18 +49,12 @@
        variables: { input },
      });
 
-     router.push("/todo", { scroll: false });
+     props.onSaveCallback();
    };
-   //   const router = useRouter();
+
    return (
      <>
        <div className="hidden space-y-6 p-10 pb-16 md:block">
-         <div className="space-y-0.5">
-           <h2 className="text-2xl font-bold tracking-tight">Create Todo</h2>
-           <p className="text-muted-foreground">Manage your tasks.</p>
-         </div>
-         <Separator className="my-6" />
-
          <Form {...form}>
            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
              <FormField

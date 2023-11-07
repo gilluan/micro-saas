@@ -1,10 +1,21 @@
 "use client";
+import React from "react";
 import { Separator } from "@/components/ui/separator";
 
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { Checkbox } from "@/components/ui/checkbox";
 
 import { useEffect, useState } from "react";
+
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
 import {
   Table,
@@ -16,12 +27,21 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-import { Todo, ListTodosQuery } from "@/app/API";
+import {
+  ListTodosQuery,
+  Todo,
+  UpdateTodoMutation,
+  DeleteTodoMutation,
+} from "@/app/API";
 import { listTodos } from "@/app/graphql/queries";
+import { updateTodo, deleteTodo } from "@/app/graphql/mutations";
 
 import { GraphQLQuery } from "@aws-amplify/api";
 
 import { API } from "aws-amplify";
+
+import { NewTodo } from "@/app/todo/new-todo";
+import { TodoTable } from "@/app/todo/todo-table";
 
 export default function ListTodoPage() {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -30,11 +50,45 @@ export default function ListTodoPage() {
     fetchTodos();
   }, []);
 
+  const [open, setOpen] = React.useState(false);
+
   const fetchTodos = async () => {
     const allTodos = await API.graphql<GraphQLQuery<ListTodosQuery>>({
       query: listTodos,
     });
     setTodos(allTodos.data?.listTodos?.items as Todo[]);
+  };
+
+  const deleteItem = async (id: string) => {
+    await API.graphql<GraphQLQuery<UpdateTodoMutation>>({
+      query: deleteTodo,
+      variables: {
+        input: {
+          id,
+        },
+      },
+    });
+
+    fetchTodos();
+  };
+
+  const toggleItem = async ({ id, done }: Todo, value: boolean) => {
+    await API.graphql<GraphQLQuery<UpdateTodoMutation>>({
+      query: updateTodo,
+      variables: {
+        input: {
+          id,
+          done: value,
+        },
+      },
+    });
+
+    fetchTodos();
+  };
+
+  const onSaveCallback = () => {
+    setOpen(false);
+    fetchTodos();
   };
 
   return (
@@ -45,30 +99,24 @@ export default function ListTodoPage() {
           <p className="text-muted-foreground">Manage your tasks.</p>
         </div>
         <Separator className="my-6" />
-        <Button asChild>
-          <Link href="/todo/new">New</Link>
-        </Button>
-        <Table>
-          <TableCaption>A list of your recent invoices.</TableCaption>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="w-[400px]">Description</TableHead>
-              <TableHead className="text-right">Status</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {todos.map((todo: Todo) => {
-              return (
-                <TableRow>
-                  <TableCell className="font-medium">
-                    {todo.description}
-                  </TableCell>
-                  <TableCell className="text-right">{todo.done}</TableCell>
-                </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
+
+        <Sheet open={open} onOpenChange={setOpen}>
+          <SheetTrigger asChild>
+            <Button>New</Button>
+          </SheetTrigger>
+          <SheetContent>
+            <SheetHeader>
+              <SheetTitle>Create Todo Form</SheetTitle>
+              <SheetDescription>Create a new todo.</SheetDescription>
+            </SheetHeader>
+            <NewTodo onSaveCallback={onSaveCallback} />
+          </SheetContent>
+        </Sheet>
+        <TodoTable
+          todos={todos}
+          toggleItem={toggleItem}
+          deleteItem={deleteItem}
+        />
       </div>
     </>
   );
