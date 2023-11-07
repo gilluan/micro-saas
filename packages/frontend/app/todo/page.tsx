@@ -79,22 +79,24 @@ export default function ListTodoPage() {
       <div className="hidden space-y-6 p-10 pb-16 md:block">
         <div className="space-y-0.5">
           <h2 className="text-2xl font-bold tracking-tight">Todos</h2>
-          <p className="text-muted-foreground">Manage your tasks.</p>
-          <div className="flex flex-row-reverse flex-nowrap">
-            <Sheet open={open} onOpenChange={setOpen}>
-              <SheetTrigger asChild>
-                <Button>
-                  <PlusCircledIcon className="mr-4 h-4 w-4" />
-                  New Task
-                </Button>
-              </SheetTrigger>
-              <SheetContent>
-                <SheetHeader>
-                  <SheetTitle>Create new todo !</SheetTitle>
-                </SheetHeader>
-                <NewTodo onSaveCallback={onSaveCallback} />
-              </SheetContent>
-            </Sheet>
+          <div className="flex">
+            <p className="grow text-muted-foreground">Manage your tasks.</p>
+            <div className="flex flex-row-reverse">
+              <Sheet open={open} onOpenChange={setOpen}>
+                <SheetTrigger asChild>
+                  <Button>
+                    <PlusCircledIcon className="mr-4 h-4 w-4" />
+                    New Task
+                  </Button>
+                </SheetTrigger>
+                <SheetContent>
+                  <SheetHeader>
+                    <SheetTitle>Create new todo !</SheetTitle>
+                  </SheetHeader>
+                  <NewTodo onSaveCallback={onSaveCallback} />
+                </SheetContent>
+              </Sheet>
+            </div>
           </div>
         </div>
         <Separator className="my-6" />
