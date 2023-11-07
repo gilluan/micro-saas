@@ -1,40 +1,23 @@
 "use client";
-import React from "react";
 import { Separator } from "@/components/ui/separator";
+import React from "react";
 
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { Checkbox } from "@/components/ui/checkbox";
+import { PlusCircledIcon } from "@radix-ui/react-icons";
 
 import { useEffect, useState } from "react";
 
 import {
   Sheet,
   SheetContent,
-  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
 
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-
-import {
-  ListTodosQuery,
-  Todo,
-  UpdateTodoMutation,
-  DeleteTodoMutation,
-} from "@/app/API";
+import { ListTodosQuery, Todo, UpdateTodoMutation } from "@/app/API";
+import { deleteTodo, updateTodo } from "@/app/graphql/mutations";
 import { listTodos } from "@/app/graphql/queries";
-import { updateTodo, deleteTodo } from "@/app/graphql/mutations";
 
 import { GraphQLQuery } from "@aws-amplify/api";
 
@@ -97,20 +80,25 @@ export default function ListTodoPage() {
         <div className="space-y-0.5">
           <h2 className="text-2xl font-bold tracking-tight">Todos</h2>
           <p className="text-muted-foreground">Manage your tasks.</p>
+          <div className="flex flex-row-reverse flex-nowrap">
+            <Sheet open={open} onOpenChange={setOpen}>
+              <SheetTrigger asChild>
+                <Button>
+                  <PlusCircledIcon className="mr-4 h-4 w-4" />
+                  New Task
+                </Button>
+              </SheetTrigger>
+              <SheetContent>
+                <SheetHeader>
+                  <SheetTitle>Create new todo !</SheetTitle>
+                </SheetHeader>
+                <NewTodo onSaveCallback={onSaveCallback} />
+              </SheetContent>
+            </Sheet>
+          </div>
         </div>
         <Separator className="my-6" />
 
-        <Sheet open={open} onOpenChange={setOpen}>
-          <SheetTrigger asChild>
-            <Button>New</Button>
-          </SheetTrigger>
-          <SheetContent>
-            <SheetHeader>
-              <SheetTitle>Create Todo Form</SheetTitle>
-            </SheetHeader>
-            <NewTodo onSaveCallback={onSaveCallback} />
-          </SheetContent>
-        </Sheet>
         <TodoTable
           todos={todos}
           toggleItem={toggleItem}

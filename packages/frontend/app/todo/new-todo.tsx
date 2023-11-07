@@ -12,6 +12,14 @@
  import { zodResolver } from "@hookform/resolvers/zod";
 
  import { Button } from "@/components/ui/button";
+
+ import {
+   Card,
+   CardContent,
+   CardDescription,
+   CardHeader,
+   CardTitle,
+ } from "@/components/ui/card";
  import {
    Form,
    FormControl,
@@ -24,8 +32,8 @@
  import { Input } from "@/components/ui/input";
 
  const formSchema = z.object({
-   description: z.string().min(10, {
-     message: "Description must be at least 10 characters.",
+   description: z.string().min(5, {
+     message: "Description must be at least 5 characters.",
    }),
  });
 
@@ -54,7 +62,7 @@
 
    return (
      <>
-       <div className="hidden space-y-6 p-10 pb-16 md:block">
+       <div className="">
          <Form {...form}>
            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
              <FormField
@@ -66,7 +74,9 @@
                    <FormControl>
                      <Input placeholder="Your description" {...field} />
                    </FormControl>
-                   <FormDescription>This is your description.</FormDescription>
+                   <FormDescription>
+                     This is your todo description.
+                   </FormDescription>
                    <FormMessage />
                  </FormItem>
                )}
