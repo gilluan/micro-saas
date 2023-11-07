@@ -2,6 +2,8 @@
 
 import { Todo } from "@/app/API";
 
+import { PlusCircledIcon, TrashIcon } from "@radix-ui/react-icons";
+
 import {
   ColumnDef,
   flexRender,
@@ -46,8 +48,7 @@ export const buildColumns = (
       cell: ({ row }) => (
         <>
           <Checkbox
-            checked={row.getIsSelected()}
-            value={row.original.done}
+            checked={row.original.done!}
             onCheckedChange={(value) => onCheckedChange(row, value)}
             aria-label="Select row"
           />
@@ -64,7 +65,12 @@ export const buildColumns = (
       header: "Delete",
       cell: ({ row }) => (
         <>
-          <Button onClick={() => onClickDelete(row.original.id)}>Delete</Button>
+          <Button
+            variant="destructive"
+            onClick={() => onClickDelete(row.original.id)}
+          >
+            <TrashIcon className="h-4 w-4" />
+          </Button>
         </>
       ),
     },
@@ -77,7 +83,6 @@ export function TodoTable(props: TodoTableProps) {
       <DataTable
         data={props.todos}
         columns={buildColumns(props.toggleItem, props.deleteItem)}
-        onRowSelection={console.log}
       />
     </>
   );

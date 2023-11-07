@@ -107,7 +107,6 @@ export default function ListTodoPage() {
           <SheetContent>
             <SheetHeader>
               <SheetTitle>Create Todo Form</SheetTitle>
-              <SheetDescription>Create a new todo.</SheetDescription>
             </SheetHeader>
             <NewTodo onSaveCallback={onSaveCallback} />
           </SheetContent>

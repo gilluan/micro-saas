@@ -1,12 +1,11 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ColumnDef,
   flexRender,
   getCoreRowModel,
   useReactTable,
-  RowSelectionState,
 } from "@tanstack/react-table";
 
 import {
@@ -18,33 +17,24 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-import { Button } from "@/components/ui/button";
-
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
-  onRowSelection: Function;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
-  onRowSelection,
 }: DataTableProps<TData, TValue>) {
-  const [rowSelection, setRowSelection] = React.useState({});
+  const [rowSelection, setRowSelection] = useState({});
 
   useEffect(() => {}, []);
-
-  const updateChange = (item: any) => {
-    setRowSelection(item);
-    onRowSelection(rowSelection);
-  };
 
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
-    onRowSelectionChange: updateChange,
+    onRowSelectionChange: setRowSelection,
     state: {
       rowSelection: rowSelection,
     },
