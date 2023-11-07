@@ -83,6 +83,52 @@ export type DeleteTodoInput = {
   id: string,
 };
 
+export type CreateProfileInput = {
+  id?: string | null,
+  name?: string | null,
+  age?: number | null,
+};
+
+export type ModelProfileConditionInput = {
+  name?: ModelStringInput | null,
+  age?: ModelIntInput | null,
+  and?: Array< ModelProfileConditionInput | null > | null,
+  or?: Array< ModelProfileConditionInput | null > | null,
+  not?: ModelProfileConditionInput | null,
+};
+
+export type ModelIntInput = {
+  ne?: number | null,
+  eq?: number | null,
+  le?: number | null,
+  lt?: number | null,
+  ge?: number | null,
+  gt?: number | null,
+  between?: Array< number | null > | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+};
+
+export type Profile = {
+  __typename: "Profile",
+  id: string,
+  name?: string | null,
+  age?: number | null,
+  createdAt: string,
+  updatedAt: string,
+  owner?: string | null,
+};
+
+export type UpdateProfileInput = {
+  id: string,
+  name?: string | null,
+  age?: number | null,
+};
+
+export type DeleteProfileInput = {
+  id: string,
+};
+
 export type ModelTodoFilterInput = {
   id?: ModelIDInput | null,
   description?: ModelStringInput | null,
@@ -111,6 +157,21 @@ export type ModelIDInput = {
 export type ModelTodoConnection = {
   __typename: "ModelTodoConnection",
   items:  Array<Todo | null >,
+  nextToken?: string | null,
+};
+
+export type ModelProfileFilterInput = {
+  id?: ModelIDInput | null,
+  name?: ModelStringInput | null,
+  age?: ModelIntInput | null,
+  and?: Array< ModelProfileFilterInput | null > | null,
+  or?: Array< ModelProfileFilterInput | null > | null,
+  not?: ModelProfileFilterInput | null,
+};
+
+export type ModelProfileConnection = {
+  __typename: "ModelProfileConnection",
+  items:  Array<Profile | null >,
   nextToken?: string | null,
 };
 
@@ -155,6 +216,26 @@ export type ModelSubscriptionStringInput = {
 export type ModelSubscriptionBooleanInput = {
   ne?: boolean | null,
   eq?: boolean | null,
+};
+
+export type ModelSubscriptionProfileFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  name?: ModelSubscriptionStringInput | null,
+  age?: ModelSubscriptionIntInput | null,
+  and?: Array< ModelSubscriptionProfileFilterInput | null > | null,
+  or?: Array< ModelSubscriptionProfileFilterInput | null > | null,
+};
+
+export type ModelSubscriptionIntInput = {
+  ne?: number | null,
+  eq?: number | null,
+  le?: number | null,
+  lt?: number | null,
+  ge?: number | null,
+  gt?: number | null,
+  between?: Array< number | null > | null,
+  in?: Array< number | null > | null,
+  notIn?: Array< number | null > | null,
 };
 
 export type CreateTodoMutationVariables = {
@@ -208,6 +289,57 @@ export type DeleteTodoMutation = {
   } | null,
 };
 
+export type CreateProfileMutationVariables = {
+  input: CreateProfileInput,
+  condition?: ModelProfileConditionInput | null,
+};
+
+export type CreateProfileMutation = {
+  createProfile?:  {
+    __typename: "Profile",
+    id: string,
+    name?: string | null,
+    age?: number | null,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type UpdateProfileMutationVariables = {
+  input: UpdateProfileInput,
+  condition?: ModelProfileConditionInput | null,
+};
+
+export type UpdateProfileMutation = {
+  updateProfile?:  {
+    __typename: "Profile",
+    id: string,
+    name?: string | null,
+    age?: number | null,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type DeleteProfileMutationVariables = {
+  input: DeleteProfileInput,
+  condition?: ModelProfileConditionInput | null,
+};
+
+export type DeleteProfileMutation = {
+  deleteProfile?:  {
+    __typename: "Profile",
+    id: string,
+    name?: string | null,
+    age?: number | null,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
 export type GetTodoQueryVariables = {
   id: string,
 };
@@ -238,6 +370,44 @@ export type ListTodosQuery = {
       id: string,
       description?: string | null,
       done?: boolean | null,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetProfileQueryVariables = {
+  id: string,
+};
+
+export type GetProfileQuery = {
+  getProfile?:  {
+    __typename: "Profile",
+    id: string,
+    name?: string | null,
+    age?: number | null,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type ListProfilesQueryVariables = {
+  filter?: ModelProfileFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListProfilesQuery = {
+  listProfiles?:  {
+    __typename: "ModelProfileConnection",
+    items:  Array< {
+      __typename: "Profile",
+      id: string,
+      name?: string | null,
+      age?: number | null,
       createdAt: string,
       updatedAt: string,
       owner?: string | null,
@@ -291,6 +461,57 @@ export type OnDeleteTodoSubscription = {
     id: string,
     description?: string | null,
     done?: boolean | null,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnCreateProfileSubscriptionVariables = {
+  filter?: ModelSubscriptionProfileFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnCreateProfileSubscription = {
+  onCreateProfile?:  {
+    __typename: "Profile",
+    id: string,
+    name?: string | null,
+    age?: number | null,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnUpdateProfileSubscriptionVariables = {
+  filter?: ModelSubscriptionProfileFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnUpdateProfileSubscription = {
+  onUpdateProfile?:  {
+    __typename: "Profile",
+    id: string,
+    name?: string | null,
+    age?: number | null,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnDeleteProfileSubscriptionVariables = {
+  filter?: ModelSubscriptionProfileFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnDeleteProfileSubscription = {
+  onDeleteProfile?:  {
+    __typename: "Profile",
+    id: string,
+    name?: string | null,
+    age?: number | null,
     createdAt: string,
     updatedAt: string,
     owner?: string | null,

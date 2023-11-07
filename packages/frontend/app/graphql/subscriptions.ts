@@ -62,3 +62,57 @@ export const onDeleteTodo = /* GraphQL */ `subscription OnDeleteTodo(
   APITypes.OnDeleteTodoSubscriptionVariables,
   APITypes.OnDeleteTodoSubscription
 >;
+export const onCreateProfile = /* GraphQL */ `subscription OnCreateProfile(
+  $filter: ModelSubscriptionProfileFilterInput
+  $owner: String
+) {
+  onCreateProfile(filter: $filter, owner: $owner) {
+    id
+    name
+    age
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateProfileSubscriptionVariables,
+  APITypes.OnCreateProfileSubscription
+>;
+export const onUpdateProfile = /* GraphQL */ `subscription OnUpdateProfile(
+  $filter: ModelSubscriptionProfileFilterInput
+  $owner: String
+) {
+  onUpdateProfile(filter: $filter, owner: $owner) {
+    id
+    name
+    age
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateProfileSubscriptionVariables,
+  APITypes.OnUpdateProfileSubscription
+>;
+export const onDeleteProfile = /* GraphQL */ `subscription OnDeleteProfile(
+  $filter: ModelSubscriptionProfileFilterInput
+  $owner: String
+) {
+  onDeleteProfile(filter: $filter, owner: $owner) {
+    id
+    name
+    age
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteProfileSubscriptionVariables,
+  APITypes.OnDeleteProfileSubscription
+>;

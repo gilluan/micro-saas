@@ -3,3 +3,9 @@ type Todo @model @auth(rules: [{ allow: owner }]) {
   description: String
   done: Boolean
 }
+
+type Profile @model @auth(rules: [{ allow: owner }]) {
+  id: ID!
+  name: String
+  age: Int
+}
