@@ -25,7 +25,7 @@ export function MainNav({ user, signOut }: WithAuthenticatorProps) {
   return (
     <div className="border-b">
       <div className="flex h-16 items-center justify-between px-4">
-        <Link href="/" className="mr-6 flex items-center space-x-2">
+        <Link href="/" className="mr-4 flex items-center space-x-2">
           <Avatar className="">
             <AvatarImage
               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQuDKHiDIFtx1QYqRTUER3h7nLpCsHe5UXH91VriM7Xg&s"
@@ -34,7 +34,7 @@ export function MainNav({ user, signOut }: WithAuthenticatorProps) {
             <AvatarFallback>AWS</AvatarFallback>
           </Avatar>
         </Link>
-        <nav className="flex space-x-4 lg:space-x-6 mx-6 justify-start">
+        <nav className="flex space-x-4 lg:space-x-4 mx-1 justify-start">
           {links.map((link) => (
             <Link
               href={link.href}
