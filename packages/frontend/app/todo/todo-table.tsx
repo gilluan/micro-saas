@@ -23,13 +23,13 @@ export const buildColumns = (
   onClickDelete: Function
 ): ColumnDef<Todo>[] => {
   const onCheckedChange = (row: any, value: any) => {
-    row.toggleSelected(!!value);
     onSelect(row.original, value);
+    row.toggleSelected(!!value);
   };
   return [
     {
       accessorKey: "done",
-      header: ({ table }) => <div className="w-[0px]">Done</div>,
+      header: ({ table }) => <div className="w-[6px]">Done</div>,
       cell: ({ row }) => (
         <>
           <Checkbox
